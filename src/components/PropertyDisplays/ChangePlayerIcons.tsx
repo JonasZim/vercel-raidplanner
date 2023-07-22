@@ -27,9 +27,7 @@ export default function ChangePlayerIcons({
     if (player.label === player.type) {
       player.label = type;
     }
-    player.img = img;
     player.iconString = iconStrings[type];
-    player.imgElement.src = iconStrings[type];
 
     player.type = ObjectType[type];
     changingPlayer();

@@ -37,7 +37,7 @@ export const loadAttacks = () => {
       <DragIcon
         key={key}
         type={ObjectType[key as AttackShapes]}
-        src={attackStrings[key]}
+        src={attackStrings[key as AttackShapes]}
         alt={getIconName(key as AttackShapes)}
       />
     );
