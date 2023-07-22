@@ -1,0 +1,110 @@
+.cr {
+  width: 25px;
+}
+
+.propertydisplay {
+  grid-area: RightSide;
+}
+
+.input-number {
+  width: 70px;
+  height: 22px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+.single {
+  width: 100%;
+}
+
+.input-color-text {
+  width: 60px;
+  height: 22px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+.color-display {
+  display: flex;
+  gap: 5px;
+}
+
+.input-number-row-2 {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  text-align: center;
+  outline: none;
+}
+
+.input-number-row-1 {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  outline: none;
+}
+
+.input-number-con {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: left;
+  height: 100%;
+}
+
+.opacity-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 30px;
+  font-size: 13px;
+}
+
+.input-label {
+  text-align: left;
+  font-size: 15px;
+  color: var(--text-color);
+}
+
+.color-button-prefab {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+  min-height: 1px;
+  width: 22px;
+  height: 22px;
+}
+
+.color-buttons {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: normal;
+  align-items: stretch;
+  align-content: flex-start;
+  width: 80%;
+}
+
+.tr {
+  height: 25px;
+  width: 80%;
+}
+
+.td {
+  width: 25px;
+  height: 25px;
+}
+
+.hans-dieter {
+  height: 90px;
+}

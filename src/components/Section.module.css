@@ -1,0 +1,32 @@
+.separator {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.separator hr {
+  flex-grow: 1;
+  border: none;
+  height: 1px;
+  background-color: black;
+  margin: 0 10px;
+}
+
+.iconcontainer {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-flow: row wrap;
+  gap: 2px;
+}
+
+.iconcontainer > * {
+  margin: 0 10px;
+}
+
+.icon-row {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 2px;
+}

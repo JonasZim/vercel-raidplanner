@@ -1,0 +1,106 @@
+.cr {
+  width: 25px;
+}
+
+.inputnumber {
+  width: 70px;
+  height: 22px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+.single {
+  width: 100%;
+}
+
+.inputcolortext {
+  width: 60px;
+  height: 22px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+.colordisplay {
+  display: flex;
+  gap: 5px;
+}
+
+.inputnumberrow2 {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  text-align: center;
+  outline: none;
+}
+
+.inputnumberrow1 {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  outline: none;
+}
+
+.inputnumbercon {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: left;
+  height: 100%;
+}
+
+.opacityslider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 30px;
+  font-size: 13px;
+}
+
+.inputlabel {
+  text-align: left;
+  font-size: 15px;
+  color: var(--text-color);
+}
+
+.colorbuttonprefab {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+  min-height: 1px;
+  width: 22px;
+  height: 22px;
+}
+
+.colorbuttons {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: normal;
+  align-items: stretch;
+  align-content: flex-start;
+  width: 80%;
+}
+
+.tr {
+  height: 25px;
+  width: 80%;
+}
+
+.td {
+  width: 25px;
+  height: 25px;
+}
+
+.hansdieter {
+  height: 90px;
+}
