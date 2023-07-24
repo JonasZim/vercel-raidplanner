@@ -2,14 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prismaExample from "./prismatest";
 import { NextResponse } from "next/server";
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: "1mb",
-    },
-  },
-};
-
 export async function POST(req: Request, res: NextApiResponse) {
   if (req.method === "POST") {
     const body = await req.json();

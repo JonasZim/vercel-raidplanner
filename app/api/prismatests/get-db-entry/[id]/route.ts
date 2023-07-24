@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import prismaExample from "./prismagettest";
 
 export async function GET(
-  request: NextApiRequest,
+  request: Request,
   context: { params: { id: string } }
 ) {
   const id = parseInt(context.params.id);
