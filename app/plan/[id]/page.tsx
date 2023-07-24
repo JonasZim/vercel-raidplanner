@@ -1,23 +1,47 @@
 "use client";
-
-import { usePathname, useSearchParams } from "next/navigation";
-import React from "react";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { getPlanFromDb } from "../../../utils/dbqueries/maybeLikeThis";
 
 export default function Page() {
-  function getPlanIdFromUrl(url: string): string | null {
+  const router = useRouter();
+  const [dbEntry, setDbEntry] = useState<String | undefined>(undefined);
+
+  async function getPlanIdFromUrl(url: string) {
     const regex = /\/plan\/(.+)/;
     const match = url.match(regex);
     if (match) {
-      return match[1];
+      const foo = await getPlanFromDb(match[1]);
+      if (!foo.plan) {
+        handleNoResult();
+      }
+      return foo;
     }
-    return null;
   }
-  const pathname = usePathname();
-  console.log(pathname);
-  const para = getPlanIdFromUrl(pathname);
+
+  function handleNoResult() {
+    router.push("/plan");
+  }
+
+  const getDBResponse = async () => {
+    const whatisthis = await getPlanIdFromUrl(usePathname());
+    const foo = JSON.stringify(whatisthis);
+    setDbEntry(foo);
+  };
+
+  const renderRespone = () => {
+    if (!dbEntry) return;
+
+    return <div>{dbEntry}</div>;
+  };
+
+  getDBResponse();
+
   return (
     <div>
-      <h1>Page {para}</h1>
+      <h1>DBEntry: Hello</h1>
+      {renderRespone()}
     </div>
   );
 }

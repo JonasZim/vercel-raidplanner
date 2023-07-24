@@ -36,9 +36,10 @@ interface Props {
   initItems: AnObject[];
   initSteps: number[];
   idStart: number;
+  savePlan?: Function;
 }
 
-function App({ initItems, initSteps, idStart }: Props) {
+function App({ initItems, initSteps, idStart, savePlan }: Props) {
   const [selectedStep, setSelectedStep] = useState(0);
   const [allItems, setAllItems] = useState(initItems);
   const [selectedElement, setSelectedElement] = useState<AnObject | null>(null);
@@ -223,12 +224,15 @@ function App({ initItems, initSteps, idStart }: Props) {
     const steps = stepList.current;
     const dataToSave = { startId, steps, allItems };
     const data = JSON.stringify(dataToSave);
+    if (savePlan) {
+      savePlan(data);
+    }
     localStorage.setItem("plannerState", data);
   };
 
   return (
     <div className={styles.App}>
-      <CounterProvider initialCounter={9}>
+      <CounterProvider initialCounter={idStart}>
         <StepContext.Provider value={selectedStep}>
           <Header className={styles.header}>
             <ThemeToggle />
