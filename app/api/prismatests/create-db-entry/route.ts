@@ -10,7 +10,7 @@ export const config = {
   },
 };
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request, res: NextApiResponse) {
   if (req.method === "POST") {
     const body = await req.json();
     const foo = await prismaExample(body.plan);

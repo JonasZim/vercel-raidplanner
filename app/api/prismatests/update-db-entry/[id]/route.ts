@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import prismaExample from "./prismaupdatetest";
 
 export async function PUT(
-  request: NextApiRequest,
+  request: Request,
   context: { params: { id: string } }
 ) {
   const id = parseInt(context.params.id); // '1'
