@@ -1,6 +1,6 @@
 export const getPlanFromDb = async (id: string) => {
   const res = await fetch(
-    `http://localhost:3000/api/prismatests/get-db-entry/${id}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/prismatests/get-db-entry/${id}`
   );
   const plan = await res.json();
   if (plan) {
@@ -11,7 +11,7 @@ export const getPlanFromDb = async (id: string) => {
 
 export const updatePlanInDb = async (id: string, plan: string) => {
   const res = await fetch(
-    `http://localhost:3000/api/prismatests/update-db-entry/${id}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/prismatests/update-db-entry/${id}`,
     {
       method: "PUT",
       headers: {
@@ -26,7 +26,7 @@ export const updatePlanInDb = async (id: string, plan: string) => {
 
 export const createPlanFromDb = async (plan: string) => {
   const res = await fetch(
-    `http://localhost:3000/api/prismatests/create-db-entry`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/prismatests/create-db-entry`,
     {
       method: "POST",
       headers: {

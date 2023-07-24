@@ -66,7 +66,6 @@ export default function Page() {
       window.alert("Updated");
     } else {
       const res = await createPlanFromDb(planData);
-      console.log(res);
       setDbId(res.id);
       window.alert("Saved");
     }
