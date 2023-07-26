@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { AnObject, isCircle, isCone, isRectangle } from "../../types";
+import {
+  AnObject,
+  isCircle,
+  isCone,
+  isRectangle,
+  isToppings,
+  isWaymarks,
+} from "../../types";
 import React from "react";
 import Image from "next/image";
 
@@ -98,9 +105,9 @@ export default function DisplayType({
   return (
     <div
       style={{
-        border: "1px solid var(--dark)",
+        //border: "1px solid var(--dark)",
         width: "99%",
-        marginBottom: "10px",
+        //marginBottom: "10px",
       }}
     >
       <div
@@ -110,13 +117,19 @@ export default function DisplayType({
           backgroundColor: "var(--darkest)",
           padding: "5px",
           fontWeight: "bold",
-          borderBottom: "1px solid var(--dark)",
+          //borderBottom: "1px solid var(--dark)",
         }}
       >
         {type} {isExpanded ? "▼" : "►"}
       </div>
       {isExpanded && (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "var(--darker)",
+          }}
+        >
           {arr.map((element: AnObject) => {
             const isSelected = element === selected;
             const backgroundColor = isSelected ? "yellow" : "inherit";
@@ -129,28 +142,41 @@ export default function DisplayType({
                 style={{
                   backgroundColor,
                   color,
+                  display: "flex",
+                  justifyContent: "space-between",
                   cursor: "pointer",
                   padding: "5px",
                   borderBottom: "1px solid var(--dark)",
                 }}
               >
-                {getRepresantive(element)}
-                {element.label}
-                <div
-                  style={{ float: "right" }}
-                  onClick={(e) => {
-                    deleteFromStep(element);
-                    setSelected(null);
-                  }}
-                >
-                  🥷🏼
+                <div style={{ display: "flex", gap: "10px" }}>
+                  {getRepresantive(element)}
+                  {element.label}
                 </div>
-
                 <div
-                  style={{ float: "right" }}
-                  onClick={(e) => deleteElement(element)}
+                  style={{ display: "flex", gap: "10px", paddingRight: "30px" }}
                 >
-                  🗑
+                  {!isWaymarks(element) && !isToppings(element) && (
+                    <div
+                      style={{ float: "right" }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteFromStep(element);
+                        setSelected(null);
+                      }}
+                    >
+                      🥷🏼
+                    </div>
+                  )}
+                  <div
+                    style={{ float: "right" }}
+                    onClick={(e) => {
+                      deleteElement(element);
+                      e.stopPropagation();
+                    }}
+                  >
+                    🗑
+                  </div>
                 </div>
               </div>
             );

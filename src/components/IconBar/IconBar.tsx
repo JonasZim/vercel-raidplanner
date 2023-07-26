@@ -20,8 +20,10 @@ export default function IconBar() {
   };
 
   return (
-    <div className={styles.iconbar} style={{ backgroundColor: "var(--light)" }}>
-      IconBar Left Side
+    <div
+      className={styles.iconbar}
+      style={{ backgroundColor: "var(--darker)", color: "var(--text-color)" }}
+    >
       <div className={styles.iconbarheader}>
         <IconTab description={1} onSelection={() => setSelected(1)} />
         <IconTab description={2} onSelection={() => setSelected(2)} />

@@ -45,7 +45,6 @@ export default function ItemForm({
 
   return (
     <div>
-      {player.label}
       <div className="input-number-row-2">
         <div className="input-number-con">
           <label className="input-label">Pos X:</label>

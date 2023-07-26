@@ -107,7 +107,11 @@ export default function Page() {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        margin: "0",
+      }}
+    >
       {renderForm()}
       {renderId()}
       {renderPlan()}
