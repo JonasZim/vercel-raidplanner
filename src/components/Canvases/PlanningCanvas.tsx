@@ -42,7 +42,7 @@ export default function PlanningCanvas(props: any) {
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const itemInStep = stepItems.filter((item: AnObject) => {
-          return item[currentStep] !== undefined;
+          return item[currentStep] !== undefined || isWaymarks(item);
         });
         itemInStep.forEach((item: AnObject) => {
           drawAnObject(ctx, item, currentStep, stepItems);
@@ -218,92 +218,7 @@ export default function PlanningCanvas(props: any) {
       setAllElements([...allElements, betterObj]);
     }
   };
-  /*
-  const onCanvasClicked = (e: React.MouseEvent) => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const rect = canvas.getBoundingClientRect();
-      const pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      let childHit2 = false;
-      stepItems.forEach((item: AnObject) => {
-        let offset;
-        if (isStepItemHit(pos, item, currentStep)) {
-          if (isWaymarks(item)) {
-            setSelectedElement(item);
-            offset = {
-              x: item.pos.x - e.clientX + rect.left,
-              y: item.pos.y - e.clientY + rect.top,
-            };
-            setDragging(offset);
-            childHit2 = true;
-          } else if (isPossibleParent(item)) {
-            setSelectedElement(item);
-            offset = {
-              x: item[currentStep].pos.x - e.clientX + rect.left,
-              y: item[currentStep].pos.y - e.clientY + rect.top,
-            };
-            setDragging(offset);
-            childHit2 = true;
-          } else if (
-            (isAttacks(item) || isToppings(item)) &&
-            item[currentStep].parents.length === 0
-          ) {
-            setSelectedElement(item);
-            offset = {
-              x: item[currentStep].pos.x - e.clientX + rect.left,
-              y: item[currentStep].pos.y - e.clientY + rect.top,
-            };
-            setDragging(offset);
-            childHit2 = true;
-          }
-        }
-      });
-      if (!childHit2) {
-        setSelectedElement(null);
-      }
-    }
-  };
 
-  const onMouseMove = (e: React.MouseEvent) => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const rect = canvas.getBoundingClientRect();
-      const pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      if (dragging) {
-        if (isWaymarks(selectedElement)) {
-          selectedElement.pos = {
-            x: pos.x + dragging.x,
-            y: pos.y + dragging.y,
-          };
-        } else {
-          selectedElement[currentStep].pos = {
-            x: pos.x + dragging.x,
-            y: pos.y + dragging.y,
-          };
-        }
-        const newElements = [...allElements];
-        setAllElements(newElements);
-      }
-
-      if (!dragging) {
-        let childHit = false;
-        stepItems.forEach((item: AnObject) => {
-          if (isStepItemHit(pos, item, currentStep)) {
-            document.body.style.cursor = "crosshair";
-            childHit = true;
-          }
-        });
-        if (!childHit) {
-          document.body.style.cursor = "default";
-        }
-      }
-    }
-  };
-
-  const onMouseUp = (e: React.MouseEvent) => {
-    setDragging(null);
-  };
-*/
   const allowDrop = (e: React.DragEvent<HTMLCanvasElement>) => {
     e.preventDefault();
   };
@@ -315,9 +230,6 @@ export default function PlanningCanvas(props: any) {
       {...rest}
       onDrop={dropHandler}
       onDragOver={allowDrop}
-      //onMouseDown={onCanvasClicked}
-      //onMouseMove={onMouseMove}
-      //onMouseUp={onMouseUp}
       height={1000}
       width={1000}
       style={{ width: "500px", height: "500px" }}
