@@ -79,7 +79,7 @@ export default function PropertyDisplay({
               style={{
                 backgroundColor: "var(--dark)",
                 color: "white",
-                border: "white 1px solid",
+                border: "var(--light) 1px solid",
                 borderRadius: "2px",
                 padding: "2px",
               }}
@@ -101,9 +101,12 @@ export default function PropertyDisplay({
   return (
     <div
       className={styles.propertydisplay}
-      style={{ backgroundColor: "var(--darkest)" }}
+      style={{
+        backgroundColor: "var(--darker)",
+        color: "var(--text-color)",
+        padding: "5px",
+      }}
     >
-      PropertyDIsplay Right Side
       {makeLabel()}
       {display()}
     </div>

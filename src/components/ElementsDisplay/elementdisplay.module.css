@@ -1,7 +1,6 @@
 .element {
   display: flex;
   flex-direction: row;
-  width: 100%;
 }
 
 .element > img {
@@ -21,6 +20,5 @@
   flex-direction: column;
   justify-content: top;
   align-items: center;
-  gap: 2px;
   grid-area: MiddleRightSide;
 }

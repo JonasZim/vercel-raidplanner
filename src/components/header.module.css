@@ -1,5 +1,5 @@
 .App {
-  height: 100vh;
+  height: 98vh;
   display: grid;
   grid-template-columns: 210px 1fr 0.4fr 0.4fr;
   grid-template-rows: 39.3px 1fr;
@@ -35,7 +35,7 @@
 
 /* Light Theme */
 .App {
-  --background-color: #cccccc;
+  --background-color: #333333;
   --text-color: #ffffff;
   --darkest: #1a1a1a;
   --darker: #333333;

@@ -210,8 +210,8 @@ function App({ initItems, initSteps, idStart, savePlan }: Props) {
   };
 
   const deleteElementFromStep = (element: AnObject) => {
-    delete element[selectedStep];
     searchAndDestroyAtCurrentStep(element);
+    delete element[selectedStep];
     setSelectedElement(null);
     updateAllItems([...allItems]);
   };
@@ -231,7 +231,12 @@ function App({ initItems, initSteps, idStart, savePlan }: Props) {
   };
 
   return (
-    <div className={styles.App}>
+    <div
+      className={styles.App}
+      style={{
+        backgroundColor: "var(--ligtht)",
+      }}
+    >
       <CounterProvider initialCounter={idStart}>
         <StepContext.Provider value={selectedStep}>
           <Header className={styles.header}>
@@ -250,7 +255,12 @@ function App({ initItems, initSteps, idStart, savePlan }: Props) {
             stepList={stepList}
           />
           <IconBar />
-          <div className={styles.canvasarea}>
+          <div
+            className={styles.canvasarea}
+            style={{
+              backgroundColor: "var(--darker)",
+            }}
+          >
             <div className={styles.centercanvas}>
               <PlanningCanvas
                 allElements={allItems}
