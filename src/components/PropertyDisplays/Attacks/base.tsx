@@ -16,8 +16,8 @@ import Dd2 from "../TestDropdown";
 import { StepContext } from "../../App";
 import { useContext } from "react";
 import React from "react";
+import InputNumber from "../../utilComponents/InputNumber";
 
-//import "../../../styling/property.css";
 import styles from "./attack.module.css";
 
 interface Props {
@@ -244,34 +244,40 @@ export default function AttackProperties({
         </div>
       </div>
       <br />
-      <div className={styles.inputnumberrow2}>
-        <div className={styles.inputnumbercon}>
-          <label className={styles.inputlabel}>Pos X:</label>
-          <input
-            className={styles.inputnumber}
-            step="10"
-            type="number"
-            value={attack[step].pos.x}
-            onChange={(e) => {
-              attack[step].pos.x = parseInt(e.target.value, 10);
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "10px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Pos X</label>
+          <InputNumber
+            width="120px"
+            step={10}
+            defaultValue={attack[step].pos.x}
+            onChange={(value: number) => {
+              attack[step].pos = { ...attack[step].pos, x: value };
               changingAttack();
             }}
           />
         </div>
-        <div className={styles.inputnumbercon}>
-          <label className={styles.inputlabel}>Pos Y:</label>
-          <input
-            className={styles.inputnumber}
-            step="10"
-            type="number"
-            value={attack[step].pos.y}
-            onChange={(e) => {
-              attack[step].pos.y = parseInt(e.target.value, 10);
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Pos Y</label>
+          <InputNumber
+            step={10}
+            width="120px"
+            defaultValue={attack[step].pos.y}
+            onChange={(value: number) => {
+              attack[step].pos = { ...attack[step].pos, y: value };
               changingAttack();
             }}
           />
         </div>
       </div>
+
       <br />
 
       {displayAttackSpecificProps()}

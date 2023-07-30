@@ -4,6 +4,7 @@
 
 .propertydisplay {
   grid-area: RightSide;
+  z-index: 10;
 }
 
 .input-number {

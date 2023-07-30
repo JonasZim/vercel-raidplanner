@@ -100,7 +100,7 @@ export default function ElementDisplay({
   return (
     <div
       className={styles.elementdisplay}
-      style={{ backgroundColor: "var(--darker)", color: "var(--text-color)" }}
+      style={{ backgroundColor: "var(--darkest)", color: "var(--text-color)" }}
     >
       {getElementsByType(getElementsOnStep()).map(
         (typeArray: AnObject[], index: number) => {

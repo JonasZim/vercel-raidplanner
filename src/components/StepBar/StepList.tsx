@@ -104,7 +104,7 @@ export default function StepList({
   };
 
   return (
-    <div style={{ backgroundColor: "var(--darker)" }}>
+    <div style={{ backgroundColor: "var(--darkest)" }}>
       {steps.map((step, index) => (
         <button
           className={styles.stepbutton}

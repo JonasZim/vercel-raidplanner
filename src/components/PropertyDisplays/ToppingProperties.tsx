@@ -8,6 +8,7 @@ import Dropdown from "./YetAnotherDropdown";
 import { valuesToInt } from "../../utils/utils";
 import { StepContext } from "../App";
 import React, { useContext } from "react";
+import InputNumber from "../utilComponents/InputNumber";
 
 interface Props {
   topping: ToppingObject;
@@ -38,29 +39,33 @@ export default function AttackProperties({
 
   return (
     <div>
-      <div className="input-number-row-2">
-        <div className="input-number-con">
-          <label className="input-label">Pos X:</label>
-          <input
-            className="input-number"
-            step="10"
-            type="number"
-            value={topping[step].pos.x}
-            onChange={(e) => {
-              topping[step].pos.x = parseInt(e.target.value, 10);
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "10px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Pos X</label>
+          <InputNumber
+            width="120px"
+            step={10}
+            defaultValue={topping[step].pos.x}
+            onChange={(value: number) => {
+              topping[step].pos = { ...topping[step].pos, x: value };
               changingTopping();
             }}
           />
         </div>
-        <div className="input-number-con">
-          <label className="input-label">Pos Y:</label>
-          <input
-            className="input-number"
-            step="10"
-            type="number"
-            value={topping[step].pos.y}
-            onChange={(e) => {
-              topping[step].pos.y = parseInt(e.target.value, 10);
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Pos Y</label>
+          <InputNumber
+            step={10}
+            width="120px"
+            defaultValue={topping[step].pos.y}
+            onChange={(value: number) => {
+              topping[step].pos = { ...topping[step].pos, y: value };
               changingTopping();
             }}
           />

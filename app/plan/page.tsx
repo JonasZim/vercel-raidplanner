@@ -110,6 +110,8 @@ export default function Page() {
     <div
       style={{
         margin: "0",
+        padding: "0",
+        backgroundColor: "black",
       }}
     >
       {renderForm()}

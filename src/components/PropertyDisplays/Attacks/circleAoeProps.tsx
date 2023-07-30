@@ -1,6 +1,6 @@
 import { CircleObject } from "../../../types";
 import React from "react";
-import styles from "./attack.module.css";
+import InputNumber from "../../utilComponents/InputNumber";
 
 interface Props {
   attack: CircleObject;
@@ -10,20 +10,17 @@ interface Props {
 export default function CircleAoeProperties({ attack, changeAttack }: Props) {
   return (
     <>
-      <div className="input-number-row-1">
-        <div className="input-number-con">
-          <label className="input-label">Radius:</label>
-          <input
-            className="input-number single"
-            step="15"
-            type="number"
-            value={attack.radius}
-            onChange={(e) => {
-              attack.radius = parseInt(e.target.value);
-              changeAttack();
-            }}
-          />
-        </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+        <label>Radius</label>
+        <InputNumber
+          width="100%"
+          step={10}
+          defaultValue={attack.radius}
+          onChange={(value: number) => {
+            attack.radius = value;
+            changeAttack();
+          }}
+        />
       </div>
     </>
   );
