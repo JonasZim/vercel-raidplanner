@@ -58,6 +58,7 @@
 .canvasarea {
   grid-area: Canvas;
   position: relative;
+  overflow-y: auto;
 }
 
 .centercanvas > canvas {
