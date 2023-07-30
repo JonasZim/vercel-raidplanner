@@ -53,7 +53,7 @@ export const getEnemyDragIcons = () => {
 export const initSetupBoss = (step: number) => {
   const bossman = Object.keys(closs).map((key) => {
     const schmoss = createEnemy(step, key as bossy);
-    schmoss[step].pos = { x: 250, y: 100 };
+    schmoss[step].pos = { x: 0, y: -100 };
     schmoss.id = 8;
 
     return schmoss;

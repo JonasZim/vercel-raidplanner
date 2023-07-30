@@ -2,9 +2,7 @@ import { RectangleObject } from "../../../types";
 import { StepContext } from "../../App";
 import { useContext } from "react";
 import React from "react";
-
-//import "../../../styling/property.css";
-import styles from "./attack.module.css";
+import InputNumber from "../../utilComponents/InputNumber";
 
 interface Props {
   attack: RectangleObject;
@@ -16,47 +14,50 @@ export default function RectAoeProperties({ attack, changeAttack }: Props) {
 
   return (
     <>
-      <div className="input-number-row-2">
-        <div className="input-number-con">
-          <label className="input-label">Height:</label>
-          <input
-            className="input-number"
-            type="number"
-            value={attack.size.y}
-            onChange={(e) => {
-              attack.size.y = parseInt(e.target.value);
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "10px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Height</label>
+          <InputNumber
+            step={5}
+            width="120px"
+            defaultValue={attack.size.y}
+            onChange={(value: number) => {
+              attack.size = { ...attack.size, y: value };
               changeAttack();
             }}
           />
         </div>
-        <div className="input-number-con">
-          <label className="input-label">Width:</label>
-          <input
-            className="input-number"
-            type="number"
-            value={attack.size.x}
-            onChange={(e) => {
-              attack.size.x = parseInt(e.target.value);
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Width</label>
+          <InputNumber
+            width="120px"
+            step={5}
+            defaultValue={attack.size.x}
+            onChange={(value: number) => {
+              attack.size = { ...attack.size, x: value };
               changeAttack();
             }}
           />
         </div>
       </div>
       <br />
-      <div className="input-number-row-1">
-        <div className="input-number-con">
-          <label className="input-label">Rotation:</label>
-          <input
-            className="input-number single"
-            step="15"
-            type="number"
-            value={attack[step].rotation}
-            onChange={(e) => {
-              attack[step].rotation = parseInt(e.target.value, 10);
-              changeAttack();
-            }}
-          />
-        </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+        <label>Rotation</label>
+        <InputNumber
+          width="100%"
+          step={5}
+          defaultValue={attack[step].rotation}
+          onChange={(value: number) => {
+            attack[step].rotation = value;
+            changeAttack();
+          }}
+        />
       </div>
       <br />
       RotPointInMiddle:{" "}

@@ -24,6 +24,7 @@ export default function PlanningCanvas(props: any) {
     setAllElements,
     selectedElement,
     setSelectedElement,
+    arena,
     ...rest
   } = props;
 
@@ -35,15 +36,33 @@ export default function PlanningCanvas(props: any) {
     return element[currentStep] !== undefined || isWaymarks(element);
   });
 
+  const getMidRelativPos = (pos: Point) => {
+    const arenaMidPos = {
+      x: arena.width / 2 + arena.padding,
+      y: arena.height / 2 + arena.padding,
+    };
+
+    return {
+      x: pos.x - arenaMidPos.x,
+      y: pos.y - arenaMidPos.y,
+    };
+  };
+
   const drawCanvas = () => {
     const canvas = canvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext("2d");
+      canvas.height = arena.height * 2 + arena.padding * 4;
+      canvas.width = arena.width * 2 + arena.padding * 4;
+      canvas.style.height = `${arena.height + arena.padding * 2}px`;
+      canvas.style.width = `${arena.width + arena.padding * 2}px`;
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const itemInStep = stepItems.filter((item: AnObject) => {
           return item[currentStep] !== undefined || isWaymarks(item);
         });
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
         itemInStep.forEach((item: AnObject) => {
           drawAnObject(ctx, item, currentStep, stepItems);
         });
@@ -53,6 +72,7 @@ export default function PlanningCanvas(props: any) {
         ) {
           drawElementSelection(ctx, selectedElement, currentStep);
         }
+        ctx.restore();
       }
     }
   };
@@ -77,7 +97,10 @@ export default function PlanningCanvas(props: any) {
         const canvas = canvasRef.current;
         if (canvas) {
           const rect = canvas.getBoundingClientRect();
-          const pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+          const pos = {
+            x: e.clientX - rect.left - arena.width / 2 - arena.padding,
+            y: e.clientY - rect.top - arena.width / 2 - arena.padding,
+          };
           let childHit2 = false;
           stepItems.forEach((item: AnObject) => {
             let offset;
@@ -85,16 +108,36 @@ export default function PlanningCanvas(props: any) {
               if (isWaymarks(item)) {
                 setSelectedElement(item);
                 offset = {
-                  x: item.pos.x - e.clientX + rect.left,
-                  y: item.pos.y - e.clientY + rect.top,
+                  x:
+                    item.pos.x -
+                    e.clientX +
+                    rect.left +
+                    arena.width / 2 +
+                    arena.padding,
+                  y:
+                    item.pos.y -
+                    e.clientY +
+                    rect.top +
+                    arena.height / 2 +
+                    arena.padding,
                 };
                 setDragging(offset);
                 childHit2 = true;
               } else if (isPossibleParent(item)) {
                 setSelectedElement(item);
                 offset = {
-                  x: item[currentStep].pos.x - e.clientX + rect.left,
-                  y: item[currentStep].pos.y - e.clientY + rect.top,
+                  x:
+                    item[currentStep].pos.x -
+                    e.clientX +
+                    rect.left +
+                    arena.width / 2 +
+                    arena.padding,
+                  y:
+                    item[currentStep].pos.y -
+                    e.clientY +
+                    rect.top +
+                    arena.height / 2 +
+                    arena.padding,
                 };
                 setDragging(offset);
                 childHit2 = true;
@@ -104,8 +147,18 @@ export default function PlanningCanvas(props: any) {
               ) {
                 setSelectedElement(item);
                 offset = {
-                  x: item[currentStep].pos.x - e.clientX + rect.left,
-                  y: item[currentStep].pos.y - e.clientY + rect.top,
+                  x:
+                    item[currentStep].pos.x -
+                    e.clientX +
+                    rect.left +
+                    arena.width / 2 +
+                    arena.padding,
+                  y:
+                    item[currentStep].pos.y -
+                    e.clientY +
+                    rect.top +
+                    arena.height / 2 +
+                    arena.padding,
                 };
                 setDragging(offset);
                 childHit2 = true;
@@ -122,7 +175,10 @@ export default function PlanningCanvas(props: any) {
         const canvas = canvasRef.current;
         if (canvas) {
           const rect = canvas.getBoundingClientRect();
-          const pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+          const pos = {
+            x: e.clientX - rect.left - arena.width / 2 - arena.padding,
+            y: e.clientY - rect.top - arena.width / 2 - arena.padding,
+          };
           if (dragging) {
             if (isWaymarks(selectedElement)) {
               selectedElement.pos = {
@@ -156,7 +212,10 @@ export default function PlanningCanvas(props: any) {
         const canvas = canvasRef.current;
         if (canvas) {
           const rect = canvas.getBoundingClientRect();
-          const pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+          const pos = {
+            x: e.clientX - rect.left - arena.width / 2 - arena.padding,
+            y: e.clientY - rect.top - arena.width / 2 - arena.padding,
+          };
           if (dragging) {
             if (isWaymarks(selectedElement)) {
               selectedElement.pos = {
@@ -177,13 +236,13 @@ export default function PlanningCanvas(props: any) {
       };
 
       canvas.addEventListener("mousedown", onMouseDown);
-      canvas.addEventListener("mousemove", onMouseMove);
-      canvas.addEventListener("mouseup", onMouseUp);
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
 
       return () => {
         canvas.removeEventListener("mousedown", onMouseDown);
-        canvas.removeEventListener("mousemove", onMouseMove);
-        canvas.removeEventListener("mouseup", onMouseUp);
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
       };
     }
   }, [canvasRef, dragging, selectedElement, allElements, currentStep]);
@@ -195,8 +254,12 @@ export default function PlanningCanvas(props: any) {
     const canvas = canvasRef.current;
     if (canvas) {
       const rect = canvas.getBoundingClientRect();
-      const x = Math.round(e.clientX - rect.left - offset.x);
-      const y = Math.round(e.clientY - rect.top - offset.y);
+      const x = Math.round(
+        e.clientX - rect.left - offset.x - arena.width / 2 - arena.padding
+      );
+      const y = Math.round(
+        e.clientY - rect.top - offset.y - arena.height / 2 - arena.padding
+      );
       return { x, y };
     }
     return { x: 0, y: 0 };
@@ -230,9 +293,6 @@ export default function PlanningCanvas(props: any) {
       {...rest}
       onDrop={dropHandler}
       onDragOver={allowDrop}
-      height={1000}
-      width={1000}
-      style={{ width: "500px", height: "500px" }}
     />
   );
 }

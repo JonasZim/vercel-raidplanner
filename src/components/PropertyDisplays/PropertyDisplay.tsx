@@ -1,6 +1,4 @@
-//import "../../styling/header.css";
 import styles from "./property.module.css";
-import MapModel from "../../models/MapModel";
 import {
   isAttacks,
   isToppings,
@@ -8,35 +6,37 @@ import {
   isPlayers,
   isEnemys,
 } from "../../types";
+import { MapType, isMap } from "../Canvases/maptype";
 import AttackProperties from "./Attacks/base";
 import ToppingProperties from "./ToppingProperties";
 
-import MapProperties from "./MapProperties";
+import MapProperties from "./MapProperties/MapProperties";
 import PlayerProperties from "./PlayerProperties";
+import InputText from "../utilComponents/InputText";
 
 import { StepContext } from "../App";
 import React, { useContext } from "react";
 
 interface PropertyDisplayProps {
   allElements: AnObject[];
-  changeMap: Function;
-  selectedElement: AnObject | MapModel;
+  selectedElement: AnObject | MapType;
   updateSelected: Function;
   updateAllElements: Function;
+  setArena: Function;
 }
 
 export default function PropertyDisplay({
   allElements,
-  changeMap,
   selectedElement,
   updateSelected,
   updateAllElements,
+  setArena,
 }: PropertyDisplayProps) {
   const step = useContext(StepContext);
 
   const display = () => {
-    if (selectedElement instanceof MapModel) {
-      return <MapProperties map={selectedElement} changeMap={changeMap} />;
+    if (isMap(selectedElement)) {
+      return <MapProperties arena={selectedElement} setArena={setArena} />;
     } else if (
       (isPlayers(selectedElement) || isEnemys(selectedElement)) &&
       selectedElement[step]
@@ -69,30 +69,22 @@ export default function PropertyDisplay({
   };
 
   const makeLabel = () => {
-    if (!(selectedElement instanceof MapModel)) {
+    if (!isMap(selectedElement)) {
       return (
-        <div className="input-number-row-1">
-          <div className="input-number-con">
-            <label className="input-label">Name:</label>
-            <input
-              className="input-text"
-              style={{
-                backgroundColor: "var(--dark)",
-                color: "white",
-                border: "var(--light) 1px solid",
-                borderRadius: "2px",
-                padding: "2px",
-              }}
-              step="15"
-              type="text"
-              value={selectedElement.label}
-              onChange={(e) => {
-                selectedElement.label = e.target.value;
+        <>
+          <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+            <label>Name</label>
+            <InputText
+              width="120px"
+              defaultValue={selectedElement.label}
+              onChange={(value: string) => {
+                selectedElement.label = value;
                 updateSelected();
               }}
             />
           </div>
-        </div>
+          <br />
+        </>
       );
     }
     return null;
@@ -102,7 +94,7 @@ export default function PropertyDisplay({
     <div
       className={styles.propertydisplay}
       style={{
-        backgroundColor: "var(--darker)",
+        backgroundColor: "var(--darkest)",
         color: "var(--text-color)",
         padding: "5px",
       }}

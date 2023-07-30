@@ -252,7 +252,7 @@ export const initSetupPlayer = (step: number) => {
   const group1 = Object.keys(playerBaseIcons).map((key, index) => {
     const player = createJob(step, key as pIconKeys);
     player.id = index;
-    player[step].pos = { x: 140 + 73 * index, y: 400 };
+    player[step].pos = { x: -146 + 73 * index, y: 80 };
 
     return player;
   });
@@ -261,7 +261,7 @@ export const initSetupPlayer = (step: number) => {
     .map((key, index) => {
       const player = createJob(step, key as jIconKeys);
       player.id = index + 5;
-      player[step].pos = { x: 140 + 73 * index, y: 450 };
+      player[step].pos = { x: -146 + 73 * index, y: 150 };
 
       return player;
     });

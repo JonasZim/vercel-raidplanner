@@ -6,7 +6,7 @@ import React from "react";
 export default function MapCanvas(props: any) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const { map, setMap, ...rest } = props;
+  const { map, ...rest } = props;
 
   const draw = () => {
     const canvas = canvasRef.current;

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { RxTriangleDown, RxTriangleRight } from "react-icons/rx";
+
 import {
   AnObject,
   isCircle,
@@ -56,6 +58,8 @@ export default function DisplayType({
       return (
         <div
           style={{
+            width: "30px",
+            height: "30px",
             borderRadius: "50%",
             backgroundColor: rgbToHex(element.color),
           }}
@@ -105,9 +109,7 @@ export default function DisplayType({
   return (
     <div
       style={{
-        //border: "1px solid var(--dark)",
-        width: "99%",
-        //marginBottom: "10px",
+        width: "100%",
       }}
     >
       <div
@@ -117,10 +119,14 @@ export default function DisplayType({
           backgroundColor: "var(--darkest)",
           padding: "5px",
           fontWeight: "bold",
-          //borderBottom: "1px solid var(--dark)",
         }}
       >
-        {type} {isExpanded ? "▼" : "►"}
+        {type}{" "}
+        {isExpanded ? (
+          <RxTriangleDown size={20} />
+        ) : (
+          <RxTriangleRight size={20} />
+        )}
       </div>
       {isExpanded && (
         <div

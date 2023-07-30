@@ -4,6 +4,8 @@ import Toppings from "./Attachments/Toppings";
 import Attacks from "./Attachments/Attacks";
 import ChangePlayerIcons from "./ChangePlayerIcons";
 import { StepContext } from "../App";
+import InputNumber from "../utilComponents/InputNumber";
+import InputText from "../utilComponents/InputText";
 
 //import "../../styling/property.css";
 
@@ -22,86 +24,91 @@ export default function ItemForm({
 }: PProps) {
   const step = useContext(StepContext);
 
-  const handlePositionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    player[step].pos = {
-      ...player[step].pos,
-      [name]: parseInt(value, 10),
-    };
-    changingPlayer();
-  };
-
-  const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    player[step].size = { ...player[step].size, [name]: parseInt(value, 10) };
-    changingPlayer();
-  };
-
-  const handleRotationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(event.target.value, 10);
-    player[step].rotation = value;
-    changingPlayer();
-  };
-
   return (
     <div>
-      <div className="input-number-row-2">
-        <div className="input-number-con">
-          <label className="input-label">Pos X:</label>
-          <input
-            className="input-number"
-            type="number"
-            name="x"
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "10px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Height</label>
+          <InputNumber
             step={5}
-            value={player[step].pos.x}
-            onChange={handlePositionChange}
+            width="120px"
+            defaultValue={player[step].size.y}
+            onChange={(value: number) => {
+              player[step].size = { ...player[step].size, y: value };
+              changingPlayer();
+            }}
           />
         </div>
-        <div className="input-number-con">
-          <label className="input-label">Pos Y:</label>
-          <input
-            className="input-number"
-            type="number"
-            name="y"
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Width</label>
+          <InputNumber
+            width="120px"
             step={5}
-            value={player[step].pos.y}
-            onChange={handlePositionChange}
+            defaultValue={player[step].size.x}
+            onChange={(value: number) => {
+              player[step].size = { ...player[step].size, x: value };
+              changingPlayer();
+            }}
           />
         </div>
       </div>
-      <div className="input-number-row-2">
-        <div className="input-number-con">
-          <label className="input-label">Height:</label>
-          <input
-            className="input-number"
-            type="number"
-            name="y"
+      <br />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "10px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Pos X</label>
+          <InputNumber
+            width="120px"
             step={10}
-            value={player[step].size.y}
-            onChange={handleSizeChange}
+            defaultValue={player[step].pos.x}
+            onChange={(value: number) => {
+              player[step].pos = { ...player[step].pos, x: value };
+              changingPlayer();
+            }}
           />
         </div>
-        <div className="input-number-con">
-          <label className="input-label">Width:</label>
-          <input
-            className="input-number"
-            type="number"
-            name="x"
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Pos Y</label>
+          <InputNumber
             step={10}
-            value={player[step].size.x}
-            onChange={handleSizeChange}
+            width="120px"
+            defaultValue={player[step].pos.y}
+            onChange={(value: number) => {
+              player[step].pos = { ...player[step].pos, y: value };
+              changingPlayer();
+            }}
           />
         </div>
       </div>
-      <div className="input-number-row-1">
-        <div className="input-number-con">
-          <label className="input-label">Rotation:</label>
-          <input
-            className="input-number single"
-            type="number"
+      <br />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "10px",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+          <label>Rotation</label>
+          <InputNumber
+            width="250px"
             step={15}
-            value={player[step].rotation}
-            onChange={handleRotationChange}
+            defaultValue={player[step].rotation}
+            onChange={(value: number) => {
+              player[step].rotation = value;
+              changingPlayer();
+            }}
           />
         </div>
       </div>
