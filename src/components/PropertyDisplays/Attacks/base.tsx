@@ -260,7 +260,6 @@ export default function AttackProperties({
             defaultValue={attack[step].pos.x}
             onChange={(value: number) => {
               attack[step].pos = { ...attack[step].pos, x: value };
-              changingAttack();
             }}
           />
         </div>
@@ -272,7 +271,6 @@ export default function AttackProperties({
             defaultValue={attack[step].pos.y}
             onChange={(value: number) => {
               attack[step].pos = { ...attack[step].pos, y: value };
-              changingAttack();
             }}
           />
         </div>

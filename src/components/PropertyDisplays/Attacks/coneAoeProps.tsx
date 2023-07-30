@@ -29,7 +29,6 @@ export default function ConeAoeProperties({ attack, changeAttack }: Props) {
             defaultValue={attack.angle}
             onChange={(value: number) => {
               attack.angle = value;
-              changeAttack();
             }}
           />
         </div>
@@ -40,7 +39,6 @@ export default function ConeAoeProperties({ attack, changeAttack }: Props) {
             defaultValue={attack[step].rotation}
             onChange={(value: number) => {
               attack[step].rotation = value;
-              changeAttack();
             }}
           />
         </div>
@@ -53,7 +51,6 @@ export default function ConeAoeProperties({ attack, changeAttack }: Props) {
           defaultValue={attack.radius}
           onChange={(value: number) => {
             attack.radius = value;
-            changeAttack();
           }}
         />
       </div>

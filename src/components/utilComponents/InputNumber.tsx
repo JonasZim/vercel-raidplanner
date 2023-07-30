@@ -27,12 +27,19 @@ export default function InputNumber({
     useState<NodeJS.Timeout | null>(null);
 
   const handleIncrement = () => {
-    setValue((prev) => prev + step);
+    setValue((value) => value + step);
   };
 
   const handleDecrement = () => {
-    if (min !== undefined && value - step < min) return;
-    setValue((prev) => prev - step);
+    setValue((value) => value - step);
+  };
+
+  const clickIncrement = () => {
+    setValue(value + step);
+  };
+
+  const clickDecrement = () => {
+    setValue(value - step);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,12 +48,12 @@ export default function InputNumber({
   };
 
   useEffect(() => {
-    onChange(value);
-  }, [value]);
-
-  useEffect(() => {
     setValue(defaultValue);
   }, [defaultValue]);
+
+  useEffect(() => {
+    onChange(value);
+  }, [value]);
 
   return (
     <div className="custom-input" style={{ width: width }}>
@@ -54,9 +61,9 @@ export default function InputNumber({
       <div className="arrow-container">
         <div
           className="arrow up"
-          onClick={handleIncrement}
+          onClick={clickIncrement}
           onMouseDown={() => {
-            const intervalId = setInterval(handleIncrement, 150);
+            const intervalId = setInterval(handleIncrement, 200);
             setIncrementIntervalId(intervalId);
           }}
           onMouseUp={() => {
@@ -76,9 +83,9 @@ export default function InputNumber({
         </div>
         <div
           className="arrow down"
-          onClick={handleDecrement}
+          onClick={clickDecrement}
           onMouseDown={() => {
-            const intervalId = setInterval(handleDecrement, 150);
+            const intervalId = setInterval(handleDecrement, 200);
             setDecrementIntervalId(intervalId);
           }}
           onMouseUp={() => {

@@ -41,7 +41,6 @@ export default function ItemForm({
             defaultValue={player[step].size.y}
             onChange={(value: number) => {
               player[step].size = { ...player[step].size, y: value };
-              changingPlayer();
             }}
           />
         </div>
@@ -53,7 +52,6 @@ export default function ItemForm({
             defaultValue={player[step].size.x}
             onChange={(value: number) => {
               player[step].size = { ...player[step].size, x: value };
-              changingPlayer();
             }}
           />
         </div>
@@ -74,7 +72,6 @@ export default function ItemForm({
             defaultValue={player[step].pos.x}
             onChange={(value: number) => {
               player[step].pos = { ...player[step].pos, x: value };
-              changingPlayer();
             }}
           />
         </div>
@@ -86,7 +83,6 @@ export default function ItemForm({
             defaultValue={player[step].pos.y}
             onChange={(value: number) => {
               player[step].pos = { ...player[step].pos, y: value };
-              changingPlayer();
             }}
           />
         </div>
@@ -107,7 +103,6 @@ export default function ItemForm({
             defaultValue={player[step].rotation}
             onChange={(value: number) => {
               player[step].rotation = value;
-              changingPlayer();
             }}
           />
         </div>

@@ -29,7 +29,6 @@ export default function RectAoeProperties({ attack, changeAttack }: Props) {
             defaultValue={attack.size.y}
             onChange={(value: number) => {
               attack.size = { ...attack.size, y: value };
-              changeAttack();
             }}
           />
         </div>
@@ -41,7 +40,6 @@ export default function RectAoeProperties({ attack, changeAttack }: Props) {
             defaultValue={attack.size.x}
             onChange={(value: number) => {
               attack.size = { ...attack.size, x: value };
-              changeAttack();
             }}
           />
         </div>
@@ -55,7 +53,6 @@ export default function RectAoeProperties({ attack, changeAttack }: Props) {
           defaultValue={attack[step].rotation}
           onChange={(value: number) => {
             attack[step].rotation = value;
-            changeAttack();
           }}
         />
       </div>

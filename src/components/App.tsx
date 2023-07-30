@@ -43,10 +43,10 @@ function App({ initItems, initSteps, idStart, savePlan }: Props) {
   const [arena, setArena] = useState<MapType>({
     type: "map",
     shape: "square",
-    padding: 60,
+    padding: 100,
     color: "#ff8000",
-    height: 400,
-    width: 400,
+    height: 500,
+    width: 500,
     spokes: 0,
     rotation: 0,
     radials: 0,

@@ -18,7 +18,6 @@ export default function CircleAoeProperties({ attack, changeAttack }: Props) {
           defaultValue={attack.radius}
           onChange={(value: number) => {
             attack.radius = value;
-            changeAttack();
           }}
         />
       </div>
