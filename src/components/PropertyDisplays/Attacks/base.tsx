@@ -6,6 +6,7 @@ import {
   isCircle,
   isCone,
   isRectangle,
+  Players,
 } from "../../../types";
 import RectAoeProperties from "./rectAoeProps";
 import CircleAoeProperties from "./circleAoeProps";
@@ -14,8 +15,8 @@ import ColorButton from "../ColorButtonPrefab";
 import { valuesToInt, valuesMaybeToInt } from "../../../utils/utils";
 import Dd2 from "../TestDropdown";
 import { StepContext } from "../../App";
-import { useContext } from "react";
-import React from "react";
+import { useContext, useEffect } from "react";
+import React, { useState } from "react";
 import InputNumber from "../../utilComponents/InputNumber";
 
 import styles from "./attack.module.css";
@@ -127,10 +128,10 @@ export default function AttackProperties({
     const parents = getAllObjects().filter((object) =>
       valuesToInt(updatedValues).includes(object.id)
     );
-    attack[step].parents = parents;
     if (parents.length === 0) {
-      attack[step].targets = [];
+      attack[step].targets = new Array<Players | string | number>();
     }
+    attack[step] = { ...attack[step], parents: [...parents] };
     changingAttack();
   };
 

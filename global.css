@@ -22,6 +22,7 @@
   padding-left: 8px;
   border: none;
   color: #fff;
+  appearance: textfield;
   font-size: 14px;
   text-align: left;
 }

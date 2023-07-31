@@ -47,6 +47,7 @@ export default function PropertyDisplay({
           changingPlayer={updateSelected}
           addElements={updateAllElements}
           allElements={allElements}
+          key={selectedElement.id}
         />
       );
     } else if (isAttacks(selectedElement) && selectedElement[step]) {
@@ -55,6 +56,7 @@ export default function PropertyDisplay({
           attack={selectedElement}
           changingAttack={updateSelected}
           allElements={allElements}
+          key={selectedElement.id}
         />
       );
     } else if (isToppings(selectedElement) && selectedElement[step]) {
@@ -63,6 +65,7 @@ export default function PropertyDisplay({
           topping={selectedElement}
           changingTopping={updateSelected}
           allElements={allElements}
+          key={selectedElement.id}
         />
       );
     }

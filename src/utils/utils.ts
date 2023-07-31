@@ -49,7 +49,7 @@ export const createAnObject = (
   id = 0,
   pos = { x: 250, y: 250 },
   parents = new Array<PossibleParentObject>(),
-  targets = new Array<Players | EnemyObject>()
+  targets = new Array<Players | EnemyObject | string | number>()
 ) => {
   switch (type) {
     case "pld":

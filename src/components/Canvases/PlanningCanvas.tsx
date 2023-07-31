@@ -31,12 +31,36 @@ export default function PlanningCanvas(props: any) {
   const [dragging, setDragging] = useState<Point | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isAnimatingRef = useRef(false);
+  const [rectPos, setRectPos] = useState<Point | null>(null);
   const [stepItems, setStepItems] = useState<AnObject[]>([]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const rect = canvas.getBoundingClientRect();
+      setRectPos({
+        x: rect.left + arena.width / 2 + arena.padding,
+        y: rect.top + arena.width / 2 + arena.padding,
+      });
+
+      canvas.height = arena.height * 2 + arena.padding * 4;
+      canvas.width = arena.width * 2 + arena.padding * 4;
+      canvas.style.height = `${arena.height + arena.padding * 2}px`;
+      canvas.style.width = `${arena.width + arena.padding * 2}px`;
+    }
+  }, [arena, canvasRef]);
+
+  useEffect(() => {
+    const items = allElements.filter((element: AnObject) => {
+      return element[currentStep] !== undefined || isWaymarks(element);
+    });
+    setStepItems(items);
+  }, [allElements, currentStep]);
 
   const drawCanvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
+    if (!ctx || !canvas || stepItems.length === 0) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -66,152 +90,126 @@ export default function PlanningCanvas(props: any) {
   }, [drawCanvas]);
 
   useEffect(() => {
-    const items = allElements.filter((item: AnObject) => {
-      return item[currentStep] !== undefined || isWaymarks(item);
-    });
-    setStepItems(items);
-  }, [allElements, currentStep]);
-
-  useEffect(() => {
     const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext("2d");
-      canvas.height = arena.height * 2 + arena.padding * 4;
-      canvas.width = arena.width * 2 + arena.padding * 4;
-      canvas.style.height = `${arena.height + arena.padding * 2}px`;
-      canvas.style.width = `${arena.width + arena.padding * 2}px`;
-    }
-  }, [arena]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const rect = canvas.getBoundingClientRect();
-      const rectPos = {
-        x: rect.left + arena.width / 2 + arena.padding,
-        y: rect.top + arena.height / 2 + arena.padding,
+    if (!canvas || !rectPos) return;
+    const onMouseDown = (e: MouseEvent) => {
+      const pos = {
+        x: e.clientX - rectPos.x,
+        y: e.clientY - rectPos.y,
       };
-      const onMouseDown = (e: MouseEvent) => {
-        const pos = {
-          x: e.clientX - rectPos.x,
-          y: e.clientY - rectPos.y,
-        };
-        let childHit2 = false;
+      let childHit2 = false;
+      stepItems.forEach((item: AnObject) => {
+        let offset;
+        if (isStepItemHit(pos, item, currentStep)) {
+          if (isWaymarks(item)) {
+            setSelectedElement(item);
+            offset = {
+              x: item.pos.x - e.clientX + rectPos.x,
+              y: item.pos.y - e.clientY + rectPos.y,
+            };
+            setDragging(offset);
+            childHit2 = true;
+          } else if (isPossibleParent(item)) {
+            setSelectedElement(item);
+            offset = {
+              x: item[currentStep].pos.x - e.clientX + rectPos.x,
+              y: item[currentStep].pos.y - e.clientY + rectPos.y,
+            };
+            setDragging(offset);
+            childHit2 = true;
+          } else if (
+            (isAttacks(item) || isToppings(item)) &&
+            item[currentStep].parents.length === 0
+          ) {
+            setSelectedElement(item);
+            offset = {
+              x: item[currentStep].pos.x - e.clientX + rectPos.x,
+              y: item[currentStep].pos.y - e.clientY + rectPos.y,
+            };
+            setDragging(offset);
+            childHit2 = true;
+          }
+        }
+      });
+      if (!childHit2) {
+        setSelectedElement(null);
+      }
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      const pos = {
+        x: e.clientX - rectPos.x,
+        y: e.clientY - rectPos.y,
+      };
+      if (dragging) {
+        if (isWaymarks(selectedElement)) {
+          selectedElement.pos = {
+            x: pos.x + dragging.x,
+            y: pos.y + dragging.y,
+          };
+        } else {
+          selectedElement[currentStep].pos = {
+            x: pos.x + dragging.x,
+            y: pos.y + dragging.y,
+          };
+        }
+      }
+
+      if (!dragging) {
+        let childHit = false;
         stepItems.forEach((item: AnObject) => {
-          let offset;
           if (isStepItemHit(pos, item, currentStep)) {
-            if (isWaymarks(item)) {
-              setSelectedElement(item);
-              offset = {
-                x:
-                  item.pos.x -
-                  e.clientX +
-                  rect.left +
-                  arena.width / 2 +
-                  arena.padding,
-                y:
-                  item.pos.y -
-                  e.clientY +
-                  rect.top +
-                  arena.height / 2 +
-                  arena.padding,
-              };
-              setDragging(offset);
-              childHit2 = true;
-            } else if (isPossibleParent(item)) {
-              setSelectedElement(item);
-              offset = {
-                x: item[currentStep].pos.x - e.clientX + rectPos.x,
-                y: item[currentStep].pos.y - e.clientY + rectPos.y,
-              };
-              setDragging(offset);
-              childHit2 = true;
-            } else if (
-              (isAttacks(item) || isToppings(item)) &&
-              item[currentStep].parents.length === 0
-            ) {
-              setSelectedElement(item);
-              offset = {
-                x: item[currentStep].pos.x - e.clientX + rectPos.x,
-                y: item[currentStep].pos.y - e.clientY + rectPos.y,
-              };
-              setDragging(offset);
-              childHit2 = true;
-            }
+            document.body.style.cursor = "crosshair";
+            childHit = true;
           }
         });
-        if (!childHit2) {
-          setSelectedElement(null);
+        if (!childHit) {
+          document.body.style.cursor = "default";
         }
-      };
+      }
+    };
 
-      const onMouseMove = (e: MouseEvent) => {
-        const pos = {
-          x: e.clientX - rectPos.x,
-          y: e.clientY - rectPos.y,
-        };
-        if (dragging) {
-          if (isWaymarks(selectedElement)) {
-            selectedElement.pos = {
-              x: pos.x + dragging.x,
-              y: pos.y + dragging.y,
-            };
-          } else {
-            selectedElement[currentStep].pos = {
-              x: pos.x + dragging.x,
-              y: pos.y + dragging.y,
-            };
-          }
+    const onMouseUp = (e: MouseEvent) => {
+      const pos = {
+        x: e.clientX - rectPos.x,
+        y: e.clientY - rectPos.y,
+      };
+      if (dragging) {
+        if (isWaymarks(selectedElement)) {
+          selectedElement.pos = {
+            x: pos.x + dragging.x,
+            y: pos.y + dragging.y,
+          };
+        } else {
+          selectedElement[currentStep].pos = {
+            x: pos.x + dragging.x,
+            y: pos.y + dragging.y,
+          };
         }
+        const newElements = [...allElements];
+        setAllElements(newElements);
+      }
+      setDragging(null);
+    };
 
-        if (!dragging) {
-          let childHit = false;
-          stepItems.forEach((item: AnObject) => {
-            if (isStepItemHit(pos, item, currentStep)) {
-              document.body.style.cursor = "crosshair";
-              childHit = true;
-            }
-          });
-          if (!childHit) {
-            document.body.style.cursor = "default";
-          }
-        }
-      };
+    canvas.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
 
-      const onMouseUp = (e: MouseEvent) => {
-        const pos = {
-          x: e.clientX - rectPos.x,
-          y: e.clientY - rectPos.y,
-        };
-        if (dragging) {
-          if (isWaymarks(selectedElement)) {
-            selectedElement.pos = {
-              x: pos.x + dragging.x,
-              y: pos.y + dragging.y,
-            };
-          } else {
-            selectedElement[currentStep].pos = {
-              x: pos.x + dragging.x,
-              y: pos.y + dragging.y,
-            };
-          }
-          const newElements = [...allElements];
-          setAllElements(newElements);
-        }
-        setDragging(null);
-      };
-
-      canvas.addEventListener("mousedown", onMouseDown);
-      window.addEventListener("mousemove", onMouseMove);
-      window.addEventListener("mouseup", onMouseUp);
-
-      return () => {
-        canvas.removeEventListener("mousedown", onMouseDown);
-        window.removeEventListener("mousemove", onMouseMove);
-        window.removeEventListener("mouseup", onMouseUp);
-      };
-    }
-  }, [canvasRef, dragging, selectedElement, allElements, currentStep, arena]);
+    return () => {
+      canvas.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [
+    canvasRef,
+    dragging,
+    selectedElement,
+    allElements,
+    currentStep,
+    rectPos,
+    stepItems,
+  ]);
 
   const calcPosOnCanvas = (
     offset: Point,

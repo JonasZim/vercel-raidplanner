@@ -44,7 +44,7 @@ export const loadAttacks = () => {
   });
 };
 
-const createAttackObject = (id = 0): AttackObject => {
+const createAttackObject = (id: number): AttackObject => {
   return {
     id: id,
     label: "",
@@ -56,9 +56,9 @@ const createAttackObject = (id = 0): AttackObject => {
 
 export const createCone = (
   step: number,
-  id = 0,
+  id: number,
   pos = { x: 250, y: 250 },
-  targets = new Array<Players | EnemyObject>(),
+  targets = new Array<Players | EnemyObject | string | number>(),
   parents = new Array<PossibleParentObject>()
 ): ConeObject => {
   return {
@@ -78,9 +78,9 @@ export const createCone = (
 
 export const createRect = (
   step: number,
-  id = 0,
+  id: number,
   pos = { x: 250, y: 250 },
-  targets = new Array<Players | EnemyObject>(),
+  targets = new Array<Players | EnemyObject | string | number>(),
   parents = new Array<PossibleParentObject>()
 ): RectangleObject => {
   return {
@@ -100,9 +100,9 @@ export const createRect = (
 
 export const createCircle = (
   step: number,
-  id = 0,
+  id: number,
   pos = { x: 250, y: 250 },
-  targets = new Array<Players | EnemyObject>(),
+  targets = new Array<Players | EnemyObject | string | number>(),
   parents = new Array<PossibleParentObject>()
 ): CircleObject => {
   return {
@@ -122,10 +122,10 @@ export const createCircle = (
 export const createAttack = (
   step: number,
   type: ObjectType,
-  id = 0,
+  id: number,
   pos: { x: 250; y: 250 },
   parents = new Array<PossibleParentObject>(),
-  targets = new Array<Players | EnemyObject>()
+  targets = new Array<Players | EnemyObject | string | number>()
 ) => {
   switch (type) {
     case ObjectType.Circle:
