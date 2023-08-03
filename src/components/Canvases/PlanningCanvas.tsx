@@ -14,6 +14,7 @@ import { isStepItemHit } from "../../utils/maffs";
 import { createAnObject } from "../../utils/utils";
 import { useCounter } from "../../IdProvider";
 import { StepContext } from "../App";
+import GenerateImages from "../../utils/GenerateImages";
 
 export default function PlanningCanvas(props: any) {
   const { counter, incrementCounter } = useCounter();
@@ -33,6 +34,8 @@ export default function PlanningCanvas(props: any) {
   const isAnimatingRef = useRef(false);
   const [rectPos, setRectPos] = useState<Point | null>(null);
   const [stepItems, setStepItems] = useState<AnObject[]>([]);
+
+  const imageRecord = useRef(GenerateImages());
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -65,7 +68,7 @@ export default function PlanningCanvas(props: any) {
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
     stepItems.forEach((item: AnObject) => {
-      drawAnObject(ctx, item, currentStep, stepItems);
+      drawAnObject(ctx, item, currentStep, stepItems, imageRecord.current);
     });
     if (
       selectedElement &&

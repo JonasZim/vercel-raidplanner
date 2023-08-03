@@ -8,8 +8,6 @@ import Header from "./Header";
 import IconBar from "./IconBar/IconBar";
 import PropertyDisplay from "./PropertyDisplays/PropertyDisplay";
 import PlanningCanvas from "./Canvases/PlanningCanvas";
-import MapCanvas from "./Canvases/MapCanvas";
-import MapModel from "../models/MapModel";
 import ElementDisplay from "./ElementsDisplay/ElementDisplay";
 import ThemeToggle from "./ThemeToggle";
 
@@ -33,13 +31,7 @@ function App({ initItems, initSteps, idStart, savePlan }: Props) {
   const [allItems, setAllItems] = useState(initItems);
   const [selectedElement, setSelectedElement] = useState<AnObject | null>(null);
   const stepList = useRef(initSteps);
-  const [area, setArea] = useState(
-    new MapModel({
-      square: true,
-      radials: 0,
-      grids: [{ rows: 4, columns: 4, coloring: [] }],
-    })
-  );
+
   const [arena, setArena] = useState<MapType>({
     type: "map",
     shape: "square",
