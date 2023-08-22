@@ -10,6 +10,7 @@ import {
   Point,
 } from "../../types";
 import { drawAnObject, drawElementSelection } from "../../utils/drawUtils";
+import { drawHandlesForSelected } from "../../utils/drawHandles";
 import { isStepItemHit } from "../../utils/maffs";
 import { createAnObject } from "../../utils/utils";
 import { useCounter } from "../../IdProvider";
@@ -74,7 +75,8 @@ export default function PlanningCanvas(props: any) {
       selectedElement &&
       (isWaymarks(selectedElement) || selectedElement[currentStep])
     ) {
-      drawElementSelection(ctx, selectedElement, currentStep);
+      //drawElementSelection(ctx, selectedElement, currentStep);
+      drawHandlesForSelected(ctx, selectedElement, currentStep, stepItems);
     }
     ctx.restore();
   };

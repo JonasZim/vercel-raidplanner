@@ -24,6 +24,7 @@ import {
 } from "../types";
 import { rotateCanvas } from "./utils";
 import { calcDistance, calculateAngle } from "./maffs";
+import { drawHandlesForSelected } from "./drawHandles";
 
 export const drawAnObject = (
   ctx: CanvasRenderingContext2D,
@@ -363,7 +364,7 @@ const getPlayer = (objects: AnObject[]): Players[] => {
   }) as Players[];
 };
 
-const getTargets = (
+export const getTargets = (
   attack: Attacc,
   parent: number,
   allElements: AnObject[],

@@ -22,10 +22,10 @@ export default function ColorButtonPrefab(props: Props) {
       onClick={changeColor}
     >
       <svg
-        width="100%"
-        height="100%"
+        width="35px"
+        height="30px"
         role="img"
-        viewBox="0 0 40 40"
+        viewBox="0 0 20 20"
         fill={props.color}
       />
     </div>
