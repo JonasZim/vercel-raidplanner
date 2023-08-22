@@ -36,6 +36,7 @@ export default function ConeAoeProperties({ attack, changeAttack }: Props) {
           <label>Rotation</label>
           <InputNumber
             width="120px"
+            step={15}
             defaultValue={attack[step].rotation}
             onChange={(value: number) => {
               attack[step].rotation = value;

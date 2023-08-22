@@ -20,18 +20,21 @@ import {
   isDpss,
   isHealers,
   isTanks,
+  ObjectType,
 } from "../types";
 import { rotateCanvas } from "./utils";
 import { calcDistance, calculateAngle } from "./maffs";
+import { drawHandlesForSelected } from "./drawHandles";
 
 export const drawAnObject = (
   ctx: CanvasRenderingContext2D,
   obj: AnObject,
   step: number,
-  allElements: AnObject[]
+  allElements: AnObject[],
+  images: Map<string, HTMLImageElement>
 ) => {
   if (isPlayers(obj) || isEnemys(obj)) {
-    drawIcon(ctx, obj, step);
+    drawIcon(ctx, obj, step, images);
   } else if (isToppings(obj)) {
     drawTopping(ctx, obj, step);
   } else if (isWaymarks(obj)) {
@@ -48,7 +51,8 @@ export const drawAnObject = (
 export const drawIcon = (
   ctx: CanvasRenderingContext2D,
   obj: Players | EnemyObject,
-  step: number
+  step: number,
+  images: Map<string, HTMLImageElement>
 ) => {
   ctx.save();
   ctx.scale(2, 2);
@@ -57,8 +61,12 @@ export const drawIcon = (
   }
   const img = new Image();
   img.src = obj.iconString;
+
+  const iconImage = images.get(obj.type);
+
+  const drawImage = iconImage ? iconImage : img;
   ctx.drawImage(
-    img,
+    drawImage,
     obj[step].pos.x - obj[step].size.x / 2,
     obj[step].pos.y - obj[step].size.y / 2,
     obj[step].size.x,
@@ -356,7 +364,7 @@ const getPlayer = (objects: AnObject[]): Players[] => {
   }) as Players[];
 };
 
-const getTargets = (
+export const getTargets = (
   attack: Attacc,
   parent: number,
   allElements: AnObject[],
