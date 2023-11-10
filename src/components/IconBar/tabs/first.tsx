@@ -1,8 +1,8 @@
 import Section from "../../section";
-import { getSortedDraggablePlayerIcons } from "../../../utils/loadIcons";
-import { getWaymarkDragIcons } from "../../../utils/loadWaymarks";
-import { getLcDragIcons } from "../../../utils/loadLimitCut";
-import { getEnemyDragIcons } from "../../../utils/loadBoss";
+import { getSortedDraggablePlayerIcons } from "../../../utils/loadingImages/loadIcons";
+import { getWaymarkDragIcons } from "../../../utils/loadingImages/loadWaymarks";
+import { getLcDragIcons } from "../../../utils/loadingImages/loadLimitCut";
+import { getEnemyDragIcons } from "../../../utils/loadingImages/loadBoss";
 import React from "react";
 
 export default function Objects() {

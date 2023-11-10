@@ -1,32 +1,32 @@
-import DragIcon from "../components/IconBar/DraggableIcon";
-import { ObjectType, Players, isTanks, isHealers } from "../types";
+import DragIcon from "../../components/IconBar/DraggableIcon";
+import { ObjectType, Players, isTanks, isHealers } from "../../types";
 import React from "react";
 
-import healer from "../icons/player/Healer.png";
-import tank from "../icons/player/Tank.png";
-import melee from "../../public/icons/player/Melee.png";
-import ranged from "../icons/player/Ranged.png";
-import caster from "../icons/player/Magic.png";
+import healer from "../../icons/player/Healer.png";
+import tank from "../../icons/player/Tank.png";
+import melee from "../../../public/icons/player/Melee.png";
+import ranged from "../../icons/player/Ranged.png";
+import caster from "../../icons/player/Magic.png";
 
-import nin from "../icons/player/all/Ninja.png";
-import drg from "../icons/player/all/Dragoon.png";
-import sam from "../icons/player/all/Samurai.png";
-import mnk from "../icons/player/all/Monk.png";
-import brd from "../icons/player/all/Bard.png";
-import mch from "../icons/player/all/Machinist.png";
-import dnc from "../icons/player/all/Dancer.png";
-import blm from "../icons/player/all/BlackMage.png";
-import smn from "../icons/player/all/Summoner.png";
-import rdm from "../icons/player/all/RedMage.png";
-import whm from "../icons/player/all/WhiteMage.png";
-import sch from "../icons/player/all/Scholar.png";
-import ast from "../icons/player/all/Astrologian.png";
-import gnb from "../icons/player/all/Gunbreaker.png";
-import pld from "../icons/player/all/Paladin.png";
-import war from "../icons/player/all/Warrior.png";
-import drk from "../icons/player/all/DarkKnight.png";
-import rpr from "../icons/player/all/Reaper.png";
-import sge from "../icons/player/all/Sage.png";
+import nin from "../../icons/player/all/Ninja.png";
+import drg from "../../icons/player/all/Dragoon.png";
+import sam from "../../icons/player/all/Samurai.png";
+import mnk from "../../icons/player/all/Monk.png";
+import brd from "../../icons/player/all/Bard.png";
+import mch from "../../icons/player/all/Machinist.png";
+import dnc from "../../icons/player/all/Dancer.png";
+import blm from "../../icons/player/all/BlackMage.png";
+import smn from "../../icons/player/all/Summoner.png";
+import rdm from "../../icons/player/all/RedMage.png";
+import whm from "../../icons/player/all/WhiteMage.png";
+import sch from "../../icons/player/all/Scholar.png";
+import ast from "../../icons/player/all/Astrologian.png";
+import gnb from "../../icons/player/all/Gunbreaker.png";
+import pld from "../../icons/player/all/Paladin.png";
+import war from "../../icons/player/all/Warrior.png";
+import drk from "../../icons/player/all/DarkKnight.png";
+import rpr from "../../icons/player/all/Reaper.png";
+import sge from "../../icons/player/all/Sage.png";
 
 export const iconStrings = {
   healer: "/icons/player/Healer.png",

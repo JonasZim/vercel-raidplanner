@@ -1,19 +1,19 @@
-import lc1 from "../icons/toppings/limitcut/lc1.png";
-import lc2 from "../icons/toppings/limitcut/lc2.png";
-import lc3 from "../icons/toppings/limitcut/lc3.png";
-import lc4 from "../icons/toppings/limitcut/lc4.png";
-import lc5 from "../icons/toppings/limitcut/lc5.png";
-import lc6 from "../icons/toppings/limitcut/lc6.png";
-import lc7 from "../icons/toppings/limitcut/lc7.png";
-import lc8 from "../icons/toppings/limitcut/lc8.png";
+import lc1 from "../../icons/toppings/limitcut/lc1.png";
+import lc2 from "../../icons/toppings/limitcut/lc2.png";
+import lc3 from "../../icons/toppings/limitcut/lc3.png";
+import lc4 from "../../icons/toppings/limitcut/lc4.png";
+import lc5 from "../../icons/toppings/limitcut/lc5.png";
+import lc6 from "../../icons/toppings/limitcut/lc6.png";
+import lc7 from "../../icons/toppings/limitcut/lc7.png";
+import lc8 from "../../icons/toppings/limitcut/lc8.png";
 
-import dsrX from "../icons/toppings/playstation/dsrX.png";
-import dsrO from "../icons/toppings/playstation/dsrO.png";
-import dsrSquare from "../icons/toppings/playstation/dsrSquare.png";
-import dsrTriangle from "../icons/toppings/playstation/dsrTriangle.png";
+import dsrX from "../../icons/toppings/playstation/dsrX.png";
+import dsrO from "../../icons/toppings/playstation/dsrO.png";
+import dsrSquare from "../../icons/toppings/playstation/dsrSquare.png";
+import dsrTriangle from "../../icons/toppings/playstation/dsrTriangle.png";
 
-import DragIcon from "../components/IconBar/DraggableIcon";
-import { ObjectType, ToppingObject, PossibleParentObject } from "../types";
+import DragIcon from "../../components/IconBar/DraggableIcon";
+import { ObjectType, ToppingObject, PossibleParentObject } from "../../types";
 import React from "react";
 
 const toppingStrings = {

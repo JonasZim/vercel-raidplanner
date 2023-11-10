@@ -1,6 +1,5 @@
 //import '../../styling/property.css';
 
-import MapModel from "../../../models/MapModel";
 import React from "react";
 import { MapType } from "../../Canvases/maptype";
 import ShapeSelector from "./MapShapeSelector";

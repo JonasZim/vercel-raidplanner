@@ -4,7 +4,7 @@ import {
   jIconKeys,
   pIconKeys,
   iconStrings,
-} from "../../utils/loadIcons";
+} from "../../utils/loadingImages/loadIcons";
 //import "../../styling/icon-bar.css";
 import Section from "../section";
 import React from "react";

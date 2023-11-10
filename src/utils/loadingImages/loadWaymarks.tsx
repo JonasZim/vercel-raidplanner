@@ -1,14 +1,14 @@
-import WayA from "../icons/waymarks/way_a.png";
-import WayB from "../icons/waymarks/way_b.png";
-import WayC from "../icons/waymarks/way_c.png";
-import WayD from "../icons/waymarks/way_d.png";
-import Way1 from "../icons/waymarks/way_1.png";
-import Way2 from "../icons/waymarks/way_2.png";
-import Way3 from "../icons/waymarks/way_3.png";
-import Way4 from "../icons/waymarks/way_4.png";
+import WayA from "../../icons/waymarks/way_a.png";
+import WayB from "../../icons/waymarks/way_b.png";
+import WayC from "../../icons/waymarks/way_c.png";
+import WayD from "../../icons/waymarks/way_d.png";
+import Way1 from "../../icons/waymarks/way_1.png";
+import Way2 from "../../icons/waymarks/way_2.png";
+import Way3 from "../../icons/waymarks/way_3.png";
+import Way4 from "../../icons/waymarks/way_4.png";
 
-import DragIcon from "../components/IconBar/DraggableIcon";
-import { ObjectType, WaymarkObject } from "../types";
+import DragIcon from "../../components/IconBar/DraggableIcon";
+import { ObjectType, WaymarkObject } from "../../types";
 import React from "react";
 
 const waymarkStrings = {

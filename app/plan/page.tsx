@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { initSetupBoss } from "../../src/utils/loadBoss";
-import { initSetupPlayer } from "../../src/utils/loadIcons";
+import { initSetupBoss } from "../../src/utils/loadingImages/loadBoss";
+import { initSetupPlayer } from "../../src/utils/loadingImages/loadIcons";
 import { AnObject, isAttacks, isToppings } from "../../src/types";
 import App from "../../src/components/App";
 import {

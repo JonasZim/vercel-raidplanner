@@ -5,7 +5,7 @@ import {
   getAllDsrIcons,
   createLcObject,
   createDsrObject,
-} from "../../../utils/loadLimitCut";
+} from "../../../utils/loadingImages/loadLimitCut";
 import { AnObject, ToppingObject, PossibleParentObject } from "../../../types";
 import Section from "../../section";
 import { useCounter } from "../../../IdProvider";

@@ -4,7 +4,7 @@ import {
   createAttack,
   getAttacks,
   AttackShapes,
-} from "../../../utils/loadAttacks";
+} from "../../../utils/loadingImages/loadAttacks";
 import Section from "../../section";
 import { useCounter } from "../../../IdProvider";
 import { StepContext } from "../../App";

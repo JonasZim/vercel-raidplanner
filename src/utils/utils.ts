@@ -1,10 +1,14 @@
 import { EnemyObject, Players, Point, PossibleParentObject } from "../types";
-import { createCone, createCircle, createRect } from "./loadAttacks";
-import { createEnemy } from "./loadBoss";
-import { createLcObject } from "./loadLimitCut";
-import { createJob } from "./loadIcons";
-import { createDsrObject } from "./loadLimitCut";
-import { createWaymarkObject } from "./loadWaymarks";
+import {
+  createCone,
+  createCircle,
+  createRect,
+} from "./loadingImages/loadAttacks";
+import { createEnemy } from "./loadingImages/loadBoss";
+import { createLcObject } from "./loadingImages/loadLimitCut";
+import { createJob } from "./loadingImages/loadIcons";
+import { createDsrObject } from "./loadingImages/loadLimitCut";
+import { createWaymarkObject } from "./loadingImages/loadWaymarks";
 
 export const valuesToInt = (values: string[]) => {
   return values.map((value) => {

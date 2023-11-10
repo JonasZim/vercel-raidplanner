@@ -1,5 +1,5 @@
 import Section from "../../section";
-import { loadAttacks } from "../../../utils/loadAttacks";
+import { loadAttacks } from "../../../utils/loadingImages/loadAttacks";
 import React from "react";
 
 export default function Attacks() {

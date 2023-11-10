@@ -1,6 +1,6 @@
-import cone from "../icons/attacks/cone.png";
-import rect from "../icons/attacks/rect.png";
-import circle from "../icons/attacks/circle.png";
+import cone from "../../icons/attacks/cone.png";
+import rect from "../../icons/attacks/rect.png";
+import circle from "../../icons/attacks/circle.png";
 
 import React from "react";
 
@@ -13,9 +13,9 @@ import {
   PossibleParentObject,
   Players,
   EnemyObject,
-} from "../types";
+} from "../../types";
 
-import DragIcon from "../components/IconBar/DraggableIcon";
+import DragIcon from "../../components/IconBar/DraggableIcon";
 
 const attackStrings = {
   Cone: "/icons/attacks/cone.png",

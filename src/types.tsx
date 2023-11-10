@@ -222,6 +222,16 @@ export type AnObject =
   | WaymarkObject
   | ToppingObject;
 
+export type objectsWithSize =
+  | WaymarkObject
+  | ToppingObject
+  | EnemyObject
+  | Players
+  | RectangleObject;
+
+export type objectsWithRadius = CircleObject | ConeObject;
+export type objectsWithAngle = ConeObject;
+
 function makeObjectTests<T extends AnObject>(
   ...types: readonly ObjectType[]
 ): (object: AnObject) => object is T {

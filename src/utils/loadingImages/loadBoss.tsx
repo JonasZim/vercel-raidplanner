@@ -1,7 +1,7 @@
-import Boss from "../icons/enemy/herbert.png";
+import Boss from "../../icons/enemy/herbert.png";
 
-import DragIcon from "../components/IconBar/DraggableIcon";
-import { ObjectType, EnemyObject } from "../types";
+import DragIcon from "../../components/IconBar/DraggableIcon";
+import { ObjectType, EnemyObject } from "../../types";
 import React from "react";
 
 const enemyStrings = {

@@ -1,30 +1,24 @@
 import {
-  Point,
   AnObject,
+  CircleObject,
+  ConeObject,
   EnemyObject,
-  isPlayers,
   Players,
-  isEnemys,
-  isToppings,
+  Point,
+  RectangleObject,
   ToppingObject,
-  isWaymarks,
   WaymarkObject,
   isCircle,
-  isRectangle,
   isCone,
-  CircleObject,
-  RectangleObject,
-  ConeObject,
-  Attacc,
-  baseObject,
-  isDpss,
-  isHealers,
-  isTanks,
-  ObjectType,
-} from "../types";
-import { rotateCanvas } from "./utils";
-import { calcDistance, calculateAngle } from "./maffs";
-import { drawHandlesForSelected } from "./drawHandles";
+  isEnemys,
+  isPlayers,
+  isRectangle,
+  isToppings,
+  isWaymarks,
+} from "../../types";
+import { getTargets } from "./drawUtils";
+import { calculateAngle } from "../maffs";
+import { rotateCanvas } from "../utils";
 
 export const drawAnObject = (
   ctx: CanvasRenderingContext2D,
@@ -48,7 +42,7 @@ export const drawAnObject = (
   }
 };
 
-export const drawIcon = (
+const drawIcon = (
   ctx: CanvasRenderingContext2D,
   obj: Players | EnemyObject,
   step: number,
@@ -64,9 +58,9 @@ export const drawIcon = (
 
   const iconImage = images.get(obj.type);
 
-  const drawImage = iconImage ? iconImage : img;
+  const imageToDraw = iconImage ? iconImage : img;
   ctx.drawImage(
-    drawImage,
+    imageToDraw,
     obj[step].pos.x - obj[step].size.x / 2,
     obj[step].pos.y - obj[step].size.y / 2,
     obj[step].size.x,
@@ -75,7 +69,7 @@ export const drawIcon = (
   ctx.restore();
 };
 
-export const drawTopping = (
+const drawTopping = (
   ctx: CanvasRenderingContext2D,
   obj: ToppingObject,
   step: number
@@ -106,10 +100,7 @@ export const drawTopping = (
   ctx.restore();
 };
 
-export const drawWaymark = (
-  ctx: CanvasRenderingContext2D,
-  obj: WaymarkObject
-) => {
+const drawWaymark = (ctx: CanvasRenderingContext2D, obj: WaymarkObject) => {
   ctx.save();
   ctx.scale(2, 2);
   const img = new Image();
@@ -146,7 +137,7 @@ export const drawWaymark = (
   ctx.restore();
 };
 
-export const drawCircles = (
+const drawCircles = (
   ctx: CanvasRenderingContext2D,
   obj: CircleObject,
   step: number,
@@ -194,7 +185,7 @@ export const drawCircles = (
   ctx.restore();
 };
 
-export const drawRects = (
+const drawRects = (
   ctx: CanvasRenderingContext2D,
   obj: RectangleObject,
   step: number,
@@ -271,7 +262,7 @@ const drawRectFunc = (
   }
 };
 
-export const drawCones = (
+const drawCones = (
   ctx: CanvasRenderingContext2D,
   obj: ConeObject,
   step: number,
@@ -338,187 +329,4 @@ const drawConeFunc = (
   ctx.closePath();
   ctx.fillStyle = `rgba(${obj.color}, ${obj.alpha})`;
   ctx.fill();
-};
-
-const getPlayersByDistance = (
-  players: Players[],
-  point: Point,
-  step: number
-) => {
-  return players.sort((a: Players, b: Players) => {
-    const aDist = calcDistance(a[step].pos, point);
-    const bDist = calcDistance(b[step].pos, point);
-    if (aDist === 0) {
-      return Infinity;
-    }
-    if (bDist === 0) {
-      return -Infinity;
-    }
-    return aDist - bDist;
-  });
-};
-
-const getPlayer = (objects: AnObject[]): Players[] => {
-  return objects.filter((element: AnObject) => {
-    return isPlayers(element);
-  }) as Players[];
-};
-
-export const getTargets = (
-  attack: Attacc,
-  parent: number,
-  allElements: AnObject[],
-  step: number
-): Players[][] => {
-  const players = getPlayer(allElements as AnObject[]);
-  const playerByDist = getPlayersByDistance(
-    players,
-    attack[step].parents[parent][step].pos,
-    step
-  );
-  if (!attack[step].targets) return [];
-  return attack[step].targets.map((tar: number | string | baseObject) => {
-    if (typeof tar === "number") {
-      return [playerByDist[tar - 1]];
-    } else {
-      switch (tar) {
-        case "dps": {
-          return players.filter((player: Players) => {
-            return isDpss(player);
-          });
-        }
-        case "healer": {
-          return players.filter((player: Players) => {
-            return isHealers(player);
-          });
-        }
-        case "tank": {
-          return players.filter((player: Players) => {
-            return isTanks(player);
-          });
-        }
-        case "support": {
-          return players.filter((player: Players) => {
-            return isTanks(player) || isHealers(player);
-          });
-        }
-        default: {
-          return [];
-        }
-      }
-    }
-  });
-};
-
-export const drawElementSelection = (
-  ctx: CanvasRenderingContext2D,
-  selectedElement: AnObject,
-  step: number
-) => {
-  if (isPlayers(selectedElement) || isEnemys(selectedElement)) {
-    drawIntercardinalHandles(
-      ctx,
-      selectedElement[step].pos,
-      selectedElement[step].size,
-      selectedElement[step].rotation
-    );
-  } else if (isRectangle(selectedElement)) {
-    drawIntercardinalHandles(
-      ctx,
-      selectedElement[step].pos,
-      selectedElement.size,
-      selectedElement[step].rotation
-    );
-    drawCardinalHandles(
-      ctx,
-      selectedElement[step].pos,
-      selectedElement.size,
-      selectedElement[step].rotation
-    );
-  } else if (isCone(selectedElement)) {
-    drawHandleForCones(
-      ctx,
-      selectedElement[step].pos,
-      selectedElement.radius,
-      selectedElement.angle,
-      selectedElement[step].rotation
-    );
-  } else if (isCircle(selectedElement)) {
-    drawCardinalHandles(
-      ctx,
-      selectedElement[step].pos,
-      { x: selectedElement.radius * 2, y: selectedElement.radius * 2 },
-      0
-    );
-  }
-};
-
-const drawHandle = (ctx: CanvasRenderingContext2D, pos: Point) => {
-  const handleSize = 8;
-  ctx.beginPath();
-  ctx.rect(
-    pos.x - handleSize / 2,
-    pos.y - handleSize / 2,
-    handleSize,
-    handleSize
-  );
-  ctx.strokeStyle = "blue";
-  ctx.stroke();
-  ctx.fillStyle = "rgba(200, 220, 255, 1)";
-  ctx.fill();
-};
-
-const drawCardinalHandles = (
-  ctx: CanvasRenderingContext2D,
-  pos: Point,
-  size: Point,
-  rotation: number
-) => {
-  ctx.save();
-  ctx.scale(2, 2);
-  rotateCanvas(ctx, rotation, pos);
-  drawHandle(ctx, { x: pos.x, y: pos.y - size.y / 2 });
-  drawHandle(ctx, { x: pos.x, y: pos.y + size.y / 2 });
-  drawHandle(ctx, { x: pos.x - size.x / 2, y: pos.y });
-  drawHandle(ctx, { x: pos.x + size.x / 2, y: pos.y });
-  ctx.restore();
-};
-
-const drawIntercardinalHandles = (
-  ctx: CanvasRenderingContext2D,
-  pos: Point,
-  size: Point,
-  rotation: number
-) => {
-  ctx.save();
-  ctx.scale(2, 2);
-  rotateCanvas(ctx, rotation, pos);
-  drawHandle(ctx, { x: pos.x - size.x / 2, y: pos.y - size.y / 2 });
-  drawHandle(ctx, { x: pos.x + size.x / 2, y: pos.y - size.y / 2 });
-  drawHandle(ctx, { x: pos.x - size.x / 2, y: pos.y + size.y / 2 });
-  drawHandle(ctx, { x: pos.x + size.x / 2, y: pos.y + size.y / 2 });
-  ctx.restore();
-};
-
-const drawHandleForCones = (
-  ctx: CanvasRenderingContext2D,
-  pos: Point,
-  radius: number,
-  angle: number,
-  rotation: number
-) => {
-  ctx.save();
-  ctx.scale(2, 2);
-  rotateCanvas(ctx, rotation, pos);
-  drawHandle(ctx, { x: pos.x, y: pos.y - radius });
-  drawHandle(ctx, { x: pos.x, y: pos.y });
-  const angleRad = (angle * Math.PI) / 180;
-  const start = (-90 * Math.PI) / 180;
-  let x = pos.x + Math.cos(angleRad / 2 + start) * radius;
-  let y = pos.y + Math.sin(angleRad / 2 + start) * radius;
-  drawHandle(ctx, { x, y });
-  x = pos.x + Math.cos(-angleRad / 2 + start) * radius;
-  y = pos.y + Math.sin(-angleRad / 2 + start) * radius;
-  drawHandle(ctx, { x, y });
-  ctx.restore();
 };
